@@ -2,8 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
+url = input('Enter the URL of the page to scrape: ')
 # URL of the page to scrape
-url = 'https://gomason.com/sports/womens-basketball/stats/2024-25/towson-university/boxscore/13177'
 
 # Send a GET request to the website
 response = requests.get(url)
@@ -53,8 +53,9 @@ if table:
     # Create a DataFrame
     df = pd.DataFrame(player_data, columns=column_headers)
 
-    # Delete rows 12 and 13
-    df = df.drop([12, 13]).reset_index(drop=True)
+    # Drop rows that include 'Totals' and 'TM TEAM' in the 'Player' column
+    df = df[~df['Player'].isin(['Totals', 'TM TEAM'])].reset_index(drop=True)
+    
 
 
     # Remove everything up until the first space in the 'Player' column
