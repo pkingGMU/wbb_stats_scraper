@@ -87,13 +87,20 @@ if table:
     df['3PT%'] = (df['3PT Made'] / df['3PT Attempt']).fillna(0) * 100
     df['FG%'] = (df['FG Made'] / df['FG Attempt']).fillna(0) * 100
     df['FT%'] = (df['FT Made'] / df['FT Attempt']).fillna(0) * 100
+
+    # Split First name and Last name
+    df['Last'] = df['Player'].str.split(', ').str[0]
+    df['First'] = df['Player'].str.split(', ').str[1]
+
+    # Remove player column
+    df.drop(columns=['Player'], inplace=True)
     
     # Debug 
     print(df.columns.tolist())
 
     # Reorder
 
-    col_order = ["##", "Player", "FG Made", "FG Attempt", "FG%", "3PT Made", "3PT Attempt", "3PT%", "FT Made", "FT Attempt", "FT%", "ORB", "DRB", "REB", 
+    col_order = ["##", "Last", "First", "FG Made", "FG Attempt", "FG%", "3PT Made", "3PT Attempt", "3PT%", "FT Made", "FT Attempt", "FT%", "ORB", "DRB", "REB", 
         "PF", "A", "TO", "BLK", "STL", "PTS" ]
     
     # Reorder the columns based on the defined order
