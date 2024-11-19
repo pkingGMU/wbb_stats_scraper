@@ -1,2 +1,4 @@
 Game-Stats/*
 .DS_Store
+.venv
+.conda
