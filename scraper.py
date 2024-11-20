@@ -100,7 +100,7 @@ if table:
 
     # Reorder
 
-    col_order = ["##", "Last", "First", "FG Made", "FG Attempt", "FG%", "3PT Made", "3PT Attempt", "3PT%", "FT Made", "FT Attempt", "FT%", "ORB", "DRB", "REB", 
+    col_order = ["##", "Last", "First", "MIN", "FG Made", "FG Attempt", "FG%", "3PT Made", "3PT Attempt", "3PT%", "FT Made", "FT Attempt", "FT%", "ORB", "DRB", "REB", 
         "PF", "A", "TO", "BLK", "STL", "PTS" ]
     
     # Reorder the columns based on the defined order
