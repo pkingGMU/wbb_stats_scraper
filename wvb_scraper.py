@@ -34,6 +34,11 @@ match_by_match_tab.click()
 
 # Wait for the page to load
 time.sleep(3)
+# Get number of games
+
+def get_game_rows():
+    return driver.find_elements(By.XPATH, "//table[@id='DataTables_Table_4']//tbody//tr")
+
 
 
 
