@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
+
 # Create driver from selenium
 driver = webdriver.Firefox()
 
@@ -14,6 +15,7 @@ url = 'https://gomason.com/sports/womens-volleyball/stats'
 driver.get(url)
 
 time.sleep(3)
+
 ### Consent Button ###
 
 #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[contains(@class, 'privacy-policy-notice-with-close-button-close')]")))
@@ -34,10 +36,12 @@ match_by_match_tab.click()
 
 # Wait for the page to load
 time.sleep(3)
+
 # Get number of games
 
 def get_game_rows():
     return driver.find_elements(By.XPATH, "//table[@id='DataTables_Table_4']//tbody//tr")
+
 
 game_rows = get_game_rows()
 
