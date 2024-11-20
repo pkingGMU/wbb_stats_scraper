@@ -39,6 +39,56 @@ time.sleep(3)
 def get_game_rows():
     return driver.find_elements(By.XPATH, "//table[@id='DataTables_Table_4']//tbody//tr")
 
+game_rows = get_game_rows()
+
+for i in range(len(game_rows)):
+
+    row = game_rows[i]
+
+    # Locate the clickable link (anchor <a> tag) inside the game row (tr)
+    game_link = row.find_element(By.TAG_NAME, 'a')  
+
+    # Print the URL debug
+    print(f"Game {i + 1} link: {game_link.get_attribute('href')}")
+
+    time.sleep(1)
+
+    game_link.click()
+
+    print(i)
+
+    time.sleep(5)
+
+
+
+    driver.back()
+
+    time.sleep(5)
+
+
+    ### Remove the Consent button again
+    # Use JavaScript to remove the consent manager element from the page
+    try:
+        driver.execute_script("document.getElementById('transcend-consent-manager').remove();")
+        print("Consent manager removed from the page.")
+    except Exception as e:
+        print("Error while removing consent manager: ", e)
+
+    # Find match-by-match
+    match_by_match_tab = driver.find_element(By.ID, "ui-id-3")
+
+    # Click on match-by-match
+    match_by_match_tab.click()
+
+    # Wait for the page to load
+    time.sleep(3)
+
+    game_rows = get_game_rows()
+
+    
+    
+
+driver.quit()
 
 
 
