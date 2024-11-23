@@ -42,6 +42,7 @@ time.sleep(3)
 def get_game_rows():
     return driver.find_elements(By.XPATH, "//table[@id='DataTables_Table_4']//tbody//tr")
 
+
 def retrieve_table(driver, site: str):
 
     # Base url will always stay the same
@@ -73,7 +74,43 @@ def retrieve_table(driver, site: str):
 
     return table
 
-game_rows = get_game_rows()
+
+def format_table(table):
+
+        # Extract the rows of the table
+        rows = table.find_elements(By.TAG_NAME, 'tr')
+
+        # Prepare a list to store the table data
+        table_data = []
+
+        # Main header row
+        main_header = rows[0].find_elements(By.TAG_NAME, 'th')
+
+        # Sub header row
+        sub_header = rows[1].find_elements(By.TAG_NAME, 'th')
+
+        headers = [
+            '##', 'Player', 'SP', 'K', 'E', 'TA', 'Pct', 'A', 'E', 'SA', 'SE', 'BS', 'BA', 'BE', 'DIG', 'BHE', 'RE', 'Pts'
+        ]
+
+        # Extract the data rows skipping the first 2 header rows and not including the last
+        for row in rows[2:-1]:  # Skip the header row
+            columns = row.find_elements(By.TAG_NAME, 'td')
+            if len(columns) > 0:  # Make sure this is not an empty row
+                row_data = [col.text.strip() for col in columns if col.text.strip() != '']
+                table_data.append(row_data)
+
+        # Create a pandas DataFrame from the table data
+        df = pd.DataFrame(table_data, columns=headers)
+
+        return df
+
+def export_df(df, i):
+    
+
+    # Save the DataFrame to a CSV file in the "Game-Stats" folder
+    df.to_csv(f"Game-Stats/{i}.csv", index=False)
+
 
 for i in range(len(game_rows)):
 
