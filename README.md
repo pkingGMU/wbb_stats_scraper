@@ -13,6 +13,8 @@ Instructions:
 5. Name your file in the terminal when prompted
 
 wvb_scraper.py is run by a more complicated selenium driver as the wvb pages are dynamic javascript.
+
+Instructions:
 1. Download the repo
 2. Ensure you have the Game-Stats folder. It should be empty
 3. Run wvb_scraper.py
