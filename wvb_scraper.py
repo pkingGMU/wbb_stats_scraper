@@ -42,6 +42,36 @@ time.sleep(3)
 def get_game_rows():
     return driver.find_elements(By.XPATH, "//table[@id='DataTables_Table_4']//tbody//tr")
 
+def retrieve_table(driver, site: str):
+
+    # Base url will always stay the same
+    BASE_URL = 'https://gomason.com'
+
+    # Site url
+    FULL_URL = site
+
+    # Wait for the page to load (you may need to adjust this time)
+    time.sleep(2)  # Wait for 2 seconds to make sure the page has loaded
+
+    # Find the second tab and click it 
+    second_tab = driver.find_element(By.ID, "ui-id-2")  # Update ui id
+    second_tab.click()
+
+    ### Remove the Consent button again
+    # Use JavaScript to remove the consent manager element from the page
+    try:
+        driver.execute_script("document.getElementById('transcend-consent-manager').remove();")
+        print("Consent manager removed from the page.")
+    except Exception as e:
+        print("Error while removing consent manager: ", e)
+
+    # Retrieve table using caption
+    caption = driver.find_element(By.XPATH, "//caption[contains(text(),'GMU - Individual')]")
+
+    # Get the parent table of the caption
+    table = caption.find_element(By.XPATH, "ancestor::table")
+
+    return table
 
 game_rows = get_game_rows()
 
